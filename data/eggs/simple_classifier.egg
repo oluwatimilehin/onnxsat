@@ -1,0 +1,75 @@
+_MaxPoolAttrs_1 = MaxPoolAttrs("NOTSET", 0, 0, Vec[i64](1, 1), Vec[i64](2, 2), Vec[i64](0, 0, 0, 0), Vec[i64](2, 2))
+_ConvAttrs_1 = ConvAttrs("NOTSET", 1, Vec[i64](1, 1), Vec[i64](5, 5), Vec[i64](0, 0, 0, 0), Vec[i64](1, 1))
+Op.Gemm(
+    TensorId("/fc3/Gemm"),
+    GemmAttrs(1.0, 1.0, 0, 1),
+    Vec[TensorId](
+        Op.Relu(
+            TensorId("/Relu_3"),
+            Op.Gemm(
+                TensorId("/fc2/Gemm"),
+                GemmAttrs(1.0, 1.0, 0, 1),
+                Vec[TensorId](
+                    Op.Relu(
+                        TensorId("/Relu_2"),
+                        Op.Gemm(
+                            TensorId("/fc1/Gemm"),
+                            GemmAttrs(1.0, 1.0, 0, 1),
+                            Vec[TensorId](
+                                Op.Reshape(
+                                    TensorId("/Reshape"),
+                                    Op.MaxPool(
+                                        TensorId("/pool_1/MaxPool"),
+                                        _MaxPoolAttrs_1,
+                                        Op.Relu(
+                                            TensorId("/Relu_1"),
+                                            Op.Conv(
+                                                TensorId("/conv2/Conv"),
+                                                _ConvAttrs_1,
+                                                Op.MaxPool(
+                                                    TensorId("/pool/MaxPool"),
+                                                    _MaxPoolAttrs_1,
+                                                    Op.Relu(
+                                                        TensorId("/Relu"),
+                                                        Op.Conv(
+                                                            TensorId("/conv1/Conv"),
+                                                            _ConvAttrs_1,
+                                                            TensorId("input.1"),
+                                                            TensorId("conv1.weight"),
+                                                            TensorId("conv1.bias"),
+                                                            TensorId("/conv1/Conv_output_0"),
+                                                        ),
+                                                        TensorId("/Relu_output_0"),
+                                                    ),
+                                                    Vec[TensorId](TensorId("/pool/MaxPool_output_0")),
+                                                ),
+                                                TensorId("conv2.weight"),
+                                                TensorId("conv2.bias"),
+                                                TensorId("/conv2/Conv_output_0"),
+                                            ),
+                                            TensorId("/Relu_1_output_0"),
+                                        ),
+                                        Vec[TensorId](TensorId("/pool_1/MaxPool_output_0")),
+                                    ),
+                                    Op.Constant(TensorId("/Constant"), TensorType(Vec[i64](2), 7, "//////////+QAQAAAAAAAA=="), TensorId("/Constant_output_0")),
+                                    TensorId("/Reshape_output_0"),
+                                ),
+                                TensorId("fc1.weight"),
+                                TensorId("fc1.bias"),
+                            ),
+                            TensorId("/fc1/Gemm_output_0"),
+                        ),
+                        TensorId("/Relu_2_output_0"),
+                    ),
+                    TensorId("fc2.weight"),
+                    TensorId("fc2.bias"),
+                ),
+                TensorId("/fc2/Gemm_output_0"),
+            ),
+            TensorId("/Relu_3_output_0"),
+        ),
+        TensorId("fc3.weight"),
+        TensorId("fc3.bias"),
+    ),
+    TensorId("23"),
+)

@@ -1,0 +1,14 @@
+anywidget
+egglog
+matplotlib
+numpy
+onnx
+onnxruntime
+onnx-tool
+onnx_graphsurgeon
+scipy
+scikit-learn
+torch
+torchvision
+tqdm
+

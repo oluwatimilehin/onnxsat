@@ -1,0 +1,17 @@
+**/__pycache__/
+/data/val
+/data/cifar-10-batches-py
+.venv/
+*.html
+.DS_Store
+*.log
+bench/results/
+.ruff_cache/
+.pytest_cache/
+.vscode/
+ILSVRC2012*
+*.bin
+*.proto
+data/converted/**/*.proto
+data/models/*.proto
+data/cifar-10-batches-py

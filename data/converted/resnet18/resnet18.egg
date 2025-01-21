@@ -1,0 +1,258 @@
+_ConvAttrs_1 = ConvAttrs("NOTSET", 1, Vec[i64](1, 1), Vec[i64](3, 3), Vec[i64](1, 1, 1, 1), Vec[i64](1, 1))
+_TensorId_1 = TensorId("com.microsoft")
+_FusedConvAttrs_1 = FusedConvAttrs("Relu", Vec[f64].empty(), "NOTSET", 1, Vec[i64](1, 1), Vec[i64](3, 3), Vec[i64](1, 1, 1, 1), Vec[i64](1, 1))
+_FusedConvAttrs_2 = FusedConvAttrs("Relu", Vec[f64].empty(), "NOTSET", 1, Vec[i64](1, 1), Vec[i64](3, 3), Vec[i64](1, 1, 1, 1), Vec[i64](2, 2))
+_TensorId_2 = Op.MaxPool(
+    TensorId("/maxpool/MaxPool"),
+    MaxPoolAttrs("NOTSET", 0, 0, Vec[i64](1, 1), Vec[i64](3, 3), Vec[i64](1, 1, 1, 1), Vec[i64](2, 2)),
+    Op.FusedConvActivation(
+        TensorId("/conv1/Conv"),
+        _TensorId_1,
+        FusedConvAttrs("Relu", Vec[f64].empty(), "NOTSET", 1, Vec[i64](1, 1), Vec[i64](7, 7), Vec[i64](3, 3, 3, 3), Vec[i64](2, 2)),
+        TensorId("input0"),
+        TensorId("onnx::Conv_193"),
+        TensorId("onnx::Conv_194"),
+        TensorId("/act1/Relu_output_0"),
+    ),
+    Vec[TensorId](TensorId("/maxpool/MaxPool_output_0")),
+)
+_TensorId_3 = Op.Relu(
+    TensorId("/layer1/layer1.0/act2/Relu"),
+    Op.Add(
+        TensorId("/layer1/layer1.0/Add"),
+        Op.Conv(
+            TensorId("/layer1/layer1.0/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer1/layer1.0/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_1,
+                _TensorId_2,
+                TensorId("onnx::Conv_196"),
+                TensorId("onnx::Conv_197"),
+                TensorId("/layer1/layer1.0/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_199"),
+            TensorId("onnx::Conv_200"),
+            TensorId("/layer1/layer1.0/conv2/Conv_output_0"),
+        ),
+        _TensorId_2,
+        TensorId("/layer1/layer1.0/Add_output_0"),
+    ),
+    TensorId("/layer1/layer1.0/act2/Relu_output_0"),
+)
+_TensorId_4 = Op.Relu(
+    TensorId("/layer1/layer1.1/act2/Relu"),
+    Op.Add(
+        TensorId("/layer1/layer1.1/Add"),
+        Op.Conv(
+            TensorId("/layer1/layer1.1/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer1/layer1.1/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_1,
+                _TensorId_3,
+                TensorId("onnx::Conv_202"),
+                TensorId("onnx::Conv_203"),
+                TensorId("/layer1/layer1.1/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_205"),
+            TensorId("onnx::Conv_206"),
+            TensorId("/layer1/layer1.1/conv2/Conv_output_0"),
+        ),
+        _TensorId_3,
+        TensorId("/layer1/layer1.1/Add_output_0"),
+    ),
+    TensorId("/layer1/layer1.1/act2/Relu_output_0"),
+)
+_ConvAttrs_2 = ConvAttrs("NOTSET", 1, Vec[i64](1, 1), Vec[i64](1, 1), Vec[i64](0, 0, 0, 0), Vec[i64](2, 2))
+_TensorId_5 = Op.Relu(
+    TensorId("/layer2/layer2.0/act2/Relu"),
+    Op.Add(
+        TensorId("/layer2/layer2.0/Add"),
+        Op.Conv(
+            TensorId("/layer2/layer2.0/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer2/layer2.0/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_2,
+                _TensorId_4,
+                TensorId("onnx::Conv_208"),
+                TensorId("onnx::Conv_209"),
+                TensorId("/layer2/layer2.0/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_211"),
+            TensorId("onnx::Conv_212"),
+            TensorId("/layer2/layer2.0/conv2/Conv_output_0"),
+        ),
+        Op.Conv(
+            TensorId("/layer2/layer2.0/downsample/downsample.0/Conv"),
+            _ConvAttrs_2,
+            _TensorId_4,
+            TensorId("onnx::Conv_214"),
+            TensorId("onnx::Conv_215"),
+            TensorId("/layer2/layer2.0/downsample/downsample.0/Conv_output_0"),
+        ),
+        TensorId("/layer2/layer2.0/Add_output_0"),
+    ),
+    TensorId("/layer2/layer2.0/act2/Relu_output_0"),
+)
+_TensorId_6 = Op.Relu(
+    TensorId("/layer2/layer2.1/act2/Relu"),
+    Op.Add(
+        TensorId("/layer2/layer2.1/Add"),
+        Op.Conv(
+            TensorId("/layer2/layer2.1/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer2/layer2.1/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_1,
+                _TensorId_5,
+                TensorId("onnx::Conv_217"),
+                TensorId("onnx::Conv_218"),
+                TensorId("/layer2/layer2.1/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_220"),
+            TensorId("onnx::Conv_221"),
+            TensorId("/layer2/layer2.1/conv2/Conv_output_0"),
+        ),
+        _TensorId_5,
+        TensorId("/layer2/layer2.1/Add_output_0"),
+    ),
+    TensorId("/layer2/layer2.1/act2/Relu_output_0"),
+)
+_TensorId_7 = Op.Relu(
+    TensorId("/layer3/layer3.0/act2/Relu"),
+    Op.Add(
+        TensorId("/layer3/layer3.0/Add"),
+        Op.Conv(
+            TensorId("/layer3/layer3.0/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer3/layer3.0/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_2,
+                _TensorId_6,
+                TensorId("onnx::Conv_223"),
+                TensorId("onnx::Conv_224"),
+                TensorId("/layer3/layer3.0/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_226"),
+            TensorId("onnx::Conv_227"),
+            TensorId("/layer3/layer3.0/conv2/Conv_output_0"),
+        ),
+        Op.Conv(
+            TensorId("/layer3/layer3.0/downsample/downsample.0/Conv"),
+            _ConvAttrs_2,
+            _TensorId_6,
+            TensorId("onnx::Conv_229"),
+            TensorId("onnx::Conv_230"),
+            TensorId("/layer3/layer3.0/downsample/downsample.0/Conv_output_0"),
+        ),
+        TensorId("/layer3/layer3.0/Add_output_0"),
+    ),
+    TensorId("/layer3/layer3.0/act2/Relu_output_0"),
+)
+_TensorId_8 = Op.Relu(
+    TensorId("/layer3/layer3.1/act2/Relu"),
+    Op.Add(
+        TensorId("/layer3/layer3.1/Add"),
+        Op.Conv(
+            TensorId("/layer3/layer3.1/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer3/layer3.1/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_1,
+                _TensorId_7,
+                TensorId("onnx::Conv_232"),
+                TensorId("onnx::Conv_233"),
+                TensorId("/layer3/layer3.1/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_235"),
+            TensorId("onnx::Conv_236"),
+            TensorId("/layer3/layer3.1/conv2/Conv_output_0"),
+        ),
+        _TensorId_7,
+        TensorId("/layer3/layer3.1/Add_output_0"),
+    ),
+    TensorId("/layer3/layer3.1/act2/Relu_output_0"),
+)
+_TensorId_9 = Op.Relu(
+    TensorId("/layer4/layer4.0/act2/Relu"),
+    Op.Add(
+        TensorId("/layer4/layer4.0/Add"),
+        Op.Conv(
+            TensorId("/layer4/layer4.0/conv2/Conv"),
+            _ConvAttrs_1,
+            Op.FusedConvActivation(
+                TensorId("/layer4/layer4.0/conv1/Conv"),
+                _TensorId_1,
+                _FusedConvAttrs_2,
+                _TensorId_8,
+                TensorId("onnx::Conv_238"),
+                TensorId("onnx::Conv_239"),
+                TensorId("/layer4/layer4.0/act1/Relu_output_0"),
+            ),
+            TensorId("onnx::Conv_241"),
+            TensorId("onnx::Conv_242"),
+            TensorId("/layer4/layer4.0/conv2/Conv_output_0"),
+        ),
+        Op.Conv(
+            TensorId("/layer4/layer4.0/downsample/downsample.0/Conv"),
+            _ConvAttrs_2,
+            _TensorId_8,
+            TensorId("onnx::Conv_244"),
+            TensorId("onnx::Conv_245"),
+            TensorId("/layer4/layer4.0/downsample/downsample.0/Conv_output_0"),
+        ),
+        TensorId("/layer4/layer4.0/Add_output_0"),
+    ),
+    TensorId("/layer4/layer4.0/act2/Relu_output_0"),
+)
+Op.Gemm(
+    TensorId("/fc/Gemm"),
+    GemmAttrs(1.0, 1.0, 0, 1),
+    Vec[TensorId](
+        Op.Flatten(
+            TensorId("/global_pool/flatten/Flatten"),
+            1,
+            Op.GlobalAveragePool(
+                TensorId("/global_pool/pool/GlobalAveragePool"),
+                Op.Relu(
+                    TensorId("/layer4/layer4.1/act2/Relu"),
+                    Op.Add(
+                        TensorId("/layer4/layer4.1/Add"),
+                        Op.Conv(
+                            TensorId("/layer4/layer4.1/conv2/Conv"),
+                            _ConvAttrs_1,
+                            Op.FusedConvActivation(
+                                TensorId("/layer4/layer4.1/conv1/Conv"),
+                                _TensorId_1,
+                                _FusedConvAttrs_1,
+                                _TensorId_9,
+                                TensorId("onnx::Conv_247"),
+                                TensorId("onnx::Conv_248"),
+                                TensorId("/layer4/layer4.1/act1/Relu_output_0"),
+                            ),
+                            TensorId("onnx::Conv_250"),
+                            TensorId("onnx::Conv_251"),
+                            TensorId("/layer4/layer4.1/conv2/Conv_output_0"),
+                        ),
+                        _TensorId_9,
+                        TensorId("/layer4/layer4.1/Add_output_0"),
+                    ),
+                    TensorId("/layer4/layer4.1/act2/Relu_output_0"),
+                ),
+                TensorId("/global_pool/pool/GlobalAveragePool_output_0"),
+            ),
+            TensorId("/global_pool/flatten/Flatten_output_0"),
+        ),
+        TensorId("fc.weight"),
+        TensorId("fc.bias"),
+    ),
+    TensorId("output0"),
+)
